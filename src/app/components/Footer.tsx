@@ -4,16 +4,16 @@ import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
 export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-16">
+      <div className="container-shell section-block">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-11 w-11 rounded-lg bg-secondary p-1.5 shadow-sm">
+              <div className="h-11 w-11 p-1.5">
                 <img
                   src="https://i.postimg.cc/vZhWWHHJ/FWC-LOGO-WHITE-300x-8.png"
                   alt="FWC Lifestyle logo"
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-contain brightness-0"
                 />
               </div>
               <div className="leading-tight">

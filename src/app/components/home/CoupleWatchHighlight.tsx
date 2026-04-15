@@ -60,19 +60,14 @@ export function CoupleWatchHighlight() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="aspect-square rounded-lg border border-border overflow-hidden relative">
+            <div className="aspect-[4/5] md:aspect-square rounded-lg border border-border overflow-hidden relative">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1548171915-eaf37b7f7a4e?auto=format&fit=crop&w=1200&q=80"
-                alt="Luxury couple watches in a premium display"
+                src="https://i.postimg.cc/qBQqwTqZ/Chat-GPT-Image-Apr-13-2026-10-43-12-AM.png"
+                alt="Couple collection watches poster"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
             </div>
-
-            {/* Decorative elements */}
-            <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-secondary/10 rounded-full blur-3xl" />
           </motion.div>
         </div>
       </div>

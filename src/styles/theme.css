@@ -2,84 +2,84 @@
 
 :root {
   --font-size: 16px;
-  --font-family-display: 'Playfair Display', serif;
-  --font-family-body: 'Inter', sans-serif;
+  --font-family-display: 'Poppins', sans-serif;
+  --font-family-body: 'Poppins', sans-serif;
 
-  /* Premium editorial luxury palette */
-  --background: #f7f4ee;
-  --foreground: #1d2430;
+  /* Professional premium palette */
+  --background: #f4f6f8;
+  --foreground: #162033;
   --card: #ffffff;
-  --card-foreground: #1d2430;
+  --card-foreground: #162033;
   --popover: #ffffff;
-  --popover-foreground: #1d2430;
-  --primary: #b68b3f;
+  --popover-foreground: #162033;
+  --primary: #133a63;
   --primary-foreground: #ffffff;
-  --secondary: #243041;
+  --secondary: #2f455f;
   --secondary-foreground: #ffffff;
-  --muted: #efe9de;
-  --muted-foreground: #6a7380;
-  --accent: #243041;
-  --accent-foreground: #ffffff;
+  --muted: #e8edf3;
+  --muted-foreground: #5f6d7e;
+  --accent: #c8a96e;
+  --accent-foreground: #162033;
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: #ddd3c2;
-  --input: #d7ccbc;
+  --border: #ced8e3;
+  --input: #c4d0dd;
   --input-background: #ffffff;
-  --switch-background: #d6cdbf;
+  --switch-background: #bdcad9;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #b68b3f;
-  --chart-1: #b68b3f;
-  --chart-2: #243041;
-  --chart-3: #6a7380;
-  --chart-4: #99866a;
-  --chart-5: #c7b295;
+  --ring: #133a63;
+  --chart-1: #133a63;
+  --chart-2: #2f455f;
+  --chart-3: #5f6d7e;
+  --chart-4: #c8a96e;
+  --chart-5: #7f8da0;
   --radius: 0.5rem;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1d2430;
-  --sidebar-primary: #b68b3f;
+  --sidebar-foreground: #162033;
+  --sidebar-primary: #133a63;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f2ede5;
-  --sidebar-accent-foreground: #1d2430;
-  --sidebar-border: #ddd3c2;
-  --sidebar-ring: #b68b3f;
+  --sidebar-accent: #e8edf3;
+  --sidebar-accent-foreground: #162033;
+  --sidebar-border: #ced8e3;
+  --sidebar-ring: #133a63;
 }
 
 .dark {
-  --background: #f7f4ee;
-  --foreground: #1d2430;
-  --card: #ffffff;
-  --card-foreground: #1d2430;
-  --popover: #ffffff;
-  --popover-foreground: #1d2430;
-  --primary: #b68b3f;
-  --primary-foreground: #ffffff;
-  --secondary: #243041;
-  --secondary-foreground: #ffffff;
-  --muted: #efe9de;
-  --muted-foreground: #6a7380;
-  --accent: #243041;
-  --accent-foreground: #ffffff;
+  --background: #0f1724;
+  --foreground: #e7edf5;
+  --card: #142134;
+  --card-foreground: #e7edf5;
+  --popover: #142134;
+  --popover-foreground: #e7edf5;
+  --primary: #c8a96e;
+  --primary-foreground: #142134;
+  --secondary: #1d2f46;
+  --secondary-foreground: #e7edf5;
+  --muted: #1a273a;
+  --muted-foreground: #9ba8b8;
+  --accent: #2d4462;
+  --accent-foreground: #e7edf5;
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: #ddd3c2;
-  --input: #d7ccbc;
-  --ring: #b68b3f;
+  --border: #27384f;
+  --input: #26384f;
+  --ring: #c8a96e;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --chart-1: #b68b3f;
-  --chart-2: #243041;
-  --chart-3: #6a7380;
-  --chart-4: #99866a;
-  --chart-5: #c7b295;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #1d2430;
-  --sidebar-primary: #b68b3f;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f2ede5;
-  --sidebar-accent-foreground: #1d2430;
-  --sidebar-border: #ddd3c2;
-  --sidebar-ring: #b68b3f;
+  --chart-1: #c8a96e;
+  --chart-2: #2d4462;
+  --chart-3: #9ba8b8;
+  --chart-4: #4f6786;
+  --chart-5: #6f84a0;
+  --sidebar: #142134;
+  --sidebar-foreground: #e7edf5;
+  --sidebar-primary: #c8a96e;
+  --sidebar-primary-foreground: #142134;
+  --sidebar-accent: #1a273a;
+  --sidebar-accent-foreground: #e7edf5;
+  --sidebar-border: #27384f;
+  --sidebar-ring: #c8a96e;
 }
 
 @theme inline {
@@ -187,5 +187,18 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+}
+
+@layer utilities {
+  .container-shell {
+    margin-inline: auto;
+    max-width: clamp(20rem, 92vw, 96rem);
+    padding-inline: clamp(1rem, 2.8vw, 3rem);
+    width: 100%;
+  }
+
+  .section-block {
+    padding-block: clamp(3rem, 1vw, 3.5rem);
   }
 }

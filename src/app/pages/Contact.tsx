@@ -2,36 +2,41 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 export function Contact() {
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-muted-foreground">Get in touch with the FWC Lifestyle support and sales team.</p>
+    <div className="min-h-screen pt-28 md:pt-32">
+      <div className="container-shell section-block">
+        <div className="text-center mb-[clamp(2rem,5vw,3.5rem)]">
+          <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-bold mb-4">Contact Us</h1>
+          <p className="text-muted-foreground text-[clamp(0.95rem,2vw,1.1rem)]">
+            Get in touch with the FWC Lifestyle support and sales team.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-[clamp(1.5rem,4vw,3rem)]">
           <div>
             <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
             <form className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Name</label>
+                <label htmlFor="contact-name" className="block text-sm font-medium mb-2">Name</label>
                 <input
+                  id="contact-name"
                   type="text"
                   className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Your name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
+                <label htmlFor="contact-email" className="block text-sm font-medium mb-2">Email</label>
                 <input
+                  id="contact-email"
                   type="email"
                   className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="your.email@example.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Message</label>
+                <label htmlFor="contact-message" className="block text-sm font-medium mb-2">Message</label>
                 <textarea
+                  id="contact-message"
                   rows={6}
                   className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="How can we help you?"
@@ -43,7 +48,7 @@ export function Contact() {
             </form>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6 rounded-xl border border-border bg-card p-[clamp(1rem,2.5vw,1.75rem)]">
             <h2 className="text-2xl font-bold mb-6">Get in touch</h2>
 
             <div className="flex items-start gap-4">

@@ -58,18 +58,18 @@ const newProducts = [
 
 export function NewArrivals() {
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+    <section className="section-block bg-background">
+      <div className="container-shell">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex justify-between items-end mb-16"
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-[clamp(2.5rem,6vw,4rem)]"
         >
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">New Arrivals</h2>
-            <p className="text-muted-foreground max-w-2xl">
+            <h2 className="text-[clamp(2rem,4vw,3.25rem)] font-bold mb-4">New Arrivals</h2>
+            <p className="text-muted-foreground max-w-2xl text-[clamp(0.95rem,2vw,1.1rem)]">
               The latest additions to our exclusive collection. Be the first to own these exceptional timepieces.
             </p>
           </div>
@@ -81,7 +81,7 @@ export function NewArrivals() {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid gap-[clamp(1rem,2.5vw,1.75rem)] [grid-template-columns:repeat(auto-fit,minmax(14.5rem,1fr))]">
           {newProducts.map((product, index) => (
             <motion.div
               key={product.id}
@@ -89,7 +89,7 @@ export function NewArrivals() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              className="group h-full"
             >
               <div className="relative overflow-hidden rounded-lg bg-card border border-border mb-4">
                 <Link to={`/product/${product.id}`} className="block aspect-square relative overflow-hidden">
@@ -99,7 +99,6 @@ export function NewArrivals() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/65 via-background/15 to-transparent" />
 
                   {/* Badge */}
                   <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-primary-foreground text-xs font-bold rounded">
@@ -108,16 +107,16 @@ export function NewArrivals() {
 
                   {/* Quick Actions */}
                   <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button className="p-2 bg-background/90 backdrop-blur-sm rounded-full hover:bg-primary hover:text-primary-foreground transition-colors">
+                    <button className="p-2 bg-background/90 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors">
                       <Heart className="w-4 h-4" />
                     </button>
-                    <button className="p-2 bg-background/90 backdrop-blur-sm rounded-full hover:bg-primary hover:text-primary-foreground transition-colors">
+                    <button className="p-2 bg-background/90 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
                   </div>
 
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
                     <button className="px-6 py-2 bg-primary text-primary-foreground rounded font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center gap-2">
                       <ShoppingCart className="w-4 h-4" />
                       ADD TO CART
@@ -127,10 +126,10 @@ export function NewArrivals() {
               </div>
 
               {/* Product Info */}
-              <div>
-                <p className="text-xs text-muted-foreground mb-1 tracking-wider">{product.brand}</p>
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground tracking-wider">{product.brand}</p>
                 <Link to={`/product/${product.id}`} className="block">
-                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold group-hover:text-primary transition-colors line-clamp-2">
                     {product.name}
                   </h3>
                 </Link>

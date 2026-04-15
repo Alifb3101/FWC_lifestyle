@@ -13,26 +13,26 @@ const instagramPosts = [
 
 export function InstagramFeed() {
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+    <section className="section-block bg-background">
+      <div className="container-shell">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-[clamp(2rem,5vw,3.5rem)]"
         >
           <div className="inline-flex items-center gap-2 mb-4">
             <Instagram className="w-6 h-6 text-primary" />
             <span className="text-sm tracking-widest text-primary">@FWCLIFESTYLE</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Join Our Community</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-[clamp(2rem,4vw,3.25rem)] font-bold mb-4">Join Our Community</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-[clamp(0.95rem,2vw,1.1rem)]">
             Share your FWC moments and get featured on our feed. Tag us for a chance to be showcased.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid gap-[clamp(0.75rem,2vw,1.25rem)] [grid-template-columns:repeat(auto-fit,minmax(8rem,1fr))]">
           {instagramPosts.map((post, index) => (
             <motion.div
               key={post.id}
@@ -64,7 +64,7 @@ export function InstagramFeed() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-[clamp(2rem,5vw,3.5rem)]"
         >
           <a
             href="https://instagram.com"

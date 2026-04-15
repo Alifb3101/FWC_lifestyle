@@ -1,63 +1,71 @@
 import { motion } from "motion/react";
 
-const brands = [
-  { name: "SEIKO", image: "https://images.unsplash.com/photo-1523170335258-f5c6c6bd8d1f?auto=format&fit=crop&w=800&q=80" },
-  { name: "CITIZEN", image: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=800&q=80" },
-  { name: "G-SHOCK", image: "https://images.unsplash.com/photo-1617043786394-f977fa12eddf?auto=format&fit=crop&w=800&q=80" },
-  { name: "CASIO", image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80" },
-  { name: "FOSSIL", image: "https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=800&q=80" },
-  { name: "ALFAJR", image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=800&q=80" },
-  { name: "AL-HARAMEEN", image: "https://images.unsplash.com/photo-1518131678677-a8b7f9b6f7f5?auto=format&fit=crop&w=800&q=80" },
-];
+const brands = ["SEIKO", "G-SHOCK", "CASIO", "CURREN", "NaviForce", "FOSSIL", "ALFAJR", "AL-HARAMEEN"];
+
+// Update these values when you upload each real logo.
+const brandLogoByName: Record<string, string> = {
+  SEIKO: "https://i.postimg.cc/7PFt7QdW/SEIKO.png",
+  "G-SHOCK": "https://i.postimg.cc/m2qLQRBT/pngwing-com.png",
+  CASIO: "https://i.postimg.cc/8zXfxxh2/casio.jpg",
+  CURREN: "https://i.postimg.cc/pd17hVK6/curren.webp",
+  NaviForce: "https://i.postimg.cc/Xvcq4hFs/naviforce.avif",
+  FOSSIL: "https://i.postimg.cc/2j4DJvQm/fossile.jpg",
+  ALFAJR: "https://i.postimg.cc/qv6QbcKD/al-fajr.png",
+  "AL-HARAMEEN": "https://i.postimg.cc/765ghwNM/al-harameen.png",
+};
+
+function getBrandLogo(brand: string) {
+  if (brandLogoByName[brand]) {
+    return brandLogoByName[brand];
+  }
+
+  return `https://dummyimage.com/420x140/f7f7f5/111827&text=${encodeURIComponent(brand)}`;
+}
 
 export function BrandShowcase() {
   return (
-    <section className="py-24 border-b border-border">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+    <section className="relative overflow-hidden border-b border-border bg-[#f5f5f3] py-20 md:py-5">
+      <div className="container-shell relative px-4 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mx-auto mb-5 max-w-3xl text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Brands</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Officially selected labels that define FWC Lifestyle's daily luxury and value-first catalog.
+          <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.42em] text-[#82775a]">Icons Of Time</span>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#111] sm:text-5xl">Our Brand Partners</h2>
+          <p className="mt-4 text-sm text-muted-foreground sm:text-base">
+            Elegant names curated for reliability, style, and premium daily wear.
           </p>
         </motion.div>
 
-        <div className="overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-          >
+        <div className="mx-auto max-w-6xl">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
             {brands.map((brand, index) => (
               <motion.div
-                key={brand.name}
-                initial={{ opacity: 0, y: 20 }}
+                key={brand}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative overflow-hidden p-8 bg-card border border-border rounded-lg hover:border-primary/50 transition-colors group cursor-pointer min-h-40"
+                transition={{ duration: 0.45, delay: index * 0.04 }}
+                whileHover={{ y: -4 }}
+                className="group relative overflow-hidden rounded-md border border-[#dad8d2] bg-[#FFFFFF] shadow-[0_6px_16px_rgba(0,0,0,0.03)] min-h-[112px]"
               >
-                <img
-                  src={brand.image}
-                  alt={brand.name}
-                  className="absolute inset-0 h-full w-full object-cover opacity-25 group-hover:opacity-35 transition-opacity duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/90 to-card/70" />
-                <span className="relative text-lg font-bold tracking-[0.2em] text-foreground group-hover:text-primary transition-colors text-center">
-                  {brand.name}
-                </span>
+                <div className="relative h-full w-full min-h-[112px]">
+                  <img
+                    src={getBrandLogo(brand)}
+                    alt={`${brand} logo`}
+                    className="absolute inset-0 h-full w-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+export default BrandShowcase;

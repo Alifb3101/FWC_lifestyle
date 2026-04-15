@@ -50,10 +50,10 @@ const reviews = [
 
 export function TrustProof() {
   return (
-    <section className="py-24 bg-card border-y border-border">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+    <section className="section-block bg-card border-y border-border">
+      <div className="container-shell">
         {/* Trust Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+        <div className="grid gap-[clamp(1.25rem,3vw,2rem)] [grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))] mb-[clamp(2.5rem,7vw,5rem)]">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -66,8 +66,10 @@ export function TrustProof() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
                 <feature.icon className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-bold mb-2">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground">{feature.description}</p>
+              <h3 className="font-bold mb-2 text-[clamp(1.05rem,2.2vw,1.25rem)]">{feature.title}</h3>
+              <p className="text-sm text-muted-foreground text-[clamp(0.9rem,1.8vw,1rem)]">
+                {feature.description}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -78,9 +80,9 @@ export function TrustProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-[clamp(2rem,5vw,3.5rem)]"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Trusted by Watch Buyers Across UAE</h2>
+          <h2 className="text-[clamp(2rem,4vw,3.25rem)] font-bold mb-4">Trusted by Watch Buyers Across UAE</h2>
           <div className="flex items-center justify-center gap-2 mb-2">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
@@ -89,10 +91,12 @@ export function TrustProof() {
             </div>
             <span className="text-lg font-bold">4.9</span>
           </div>
-          <p className="text-muted-foreground">Based on 1,247 verified customer reviews</p>
+          <p className="text-muted-foreground text-[clamp(0.9rem,1.8vw,1rem)]">
+            Based on 1,247 verified customer reviews
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid gap-[clamp(1rem,2.5vw,1.75rem)] [grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))]">
           {reviews.map((review, index) => (
             <motion.div
               key={review.id}
@@ -100,7 +104,7 @@ export function TrustProof() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-background border border-border rounded-lg p-6"
+              className="bg-background border border-border rounded-lg p-[clamp(1.25rem,2.5vw,1.75rem)] h-full"
             >
               <Quote className="w-8 h-8 text-primary/20 mb-4" />
               <div className="flex mb-3">
@@ -108,7 +112,9 @@ export function TrustProof() {
                   <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground mb-4">{review.text}</p>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-4">
+                {review.text}
+              </p>
               <div>
                 <p className="font-semibold text-sm">{review.name}</p>
                 <p className="text-xs text-muted-foreground">{review.date}</p>

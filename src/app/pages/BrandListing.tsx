@@ -40,13 +40,14 @@ const brands = [
 
 export function BrandListing() {
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-        <h1 className="text-5xl font-bold mb-4">FWC Partner Brands</h1>
-        <p className="text-muted-foreground mb-12 max-w-3xl">
+    <div className="min-h-screen pt-28 md:pt-32">
+      <div className="container-shell section-block">
+        <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-bold mb-4">FWC Partner Brands</h1>
+        <p className="text-muted-foreground mb-[clamp(2rem,5vw,3.5rem)] max-w-3xl text-[clamp(0.95rem,2vw,1.1rem)]">
           We currently focus on seven trusted labels to keep inventory quality high and pricing transparent in AED.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+        <div className="grid gap-[clamp(1rem,2.5vw,1.75rem)] [grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))]">
           {brands.map((brand, index) => (
             <motion.article
               key={brand.name}
@@ -54,18 +55,18 @@ export function BrandListing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.06 }}
-              className="relative overflow-hidden rounded-xl border border-border bg-card min-h-72"
+              className="relative overflow-hidden rounded-xl border border-border bg-card min-h-[clamp(14rem,26vw,18rem)]"
             >
               <img
                 src={brand.image}
                 alt={brand.name}
-                className="absolute inset-0 h-full w-full object-cover opacity-30"
+                className="absolute inset-0 h-full w-full object-cover opacity-75"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/95 to-card/70" />
-              <div className="relative p-6 flex h-full flex-col justify-end">
-                <h2 className="text-2xl font-bold tracking-wide mb-2">{brand.name}</h2>
-                <p className="text-sm text-muted-foreground">{brand.tagline}</p>
+              <div className="absolute inset-0 bg-background/20" />
+              <div className="relative p-[clamp(1rem,2.4vw,1.5rem)] flex h-full flex-col justify-end gap-2">
+                <h2 className="text-[clamp(1.4rem,3vw,1.8rem)] font-bold tracking-wide">{brand.name}</h2>
+                <p className="text-sm text-foreground/85 line-clamp-2">{brand.tagline}</p>
               </div>
             </motion.article>
           ))}
