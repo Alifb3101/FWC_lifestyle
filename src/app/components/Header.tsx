@@ -4,7 +4,7 @@ import { Search, Heart, User, ShoppingBag, Menu, X, MapPin, Phone } from "lucide
 
 const NAV_ITEMS = [
   { label: "Brands", to: "/brands" },
-  { label: "All Watches", to: "/collections" },
+  { label: "Alarm Clocks", to: "/collections" },
   { label: "Men", to: "/men" },
   { label: "Women", to: "/women" },
   { label: "Couple Watch", to: "/couple-watch" },
@@ -77,7 +77,7 @@ export function Header() {
         </div>
 
         <div className="text-[12px] normal-case tracking-[0.12em] text-[#a79885] italic" style={{ fontFamily: '"Playfair Display", serif' }}>
-          Crafted for the Discerning
+        Authorized Seller of Luxury Watches in the UAE
         </div>
 
         <div className="flex items-center gap-4">

@@ -14,7 +14,6 @@ export function Home() {
       <BrandShowcase />
       <BestSellers />
       <CoupleWatchHighlight />
-      <FeaturedCollections />
       <GenderBlocks />
       <InstagramFeed />
       <TrustProof />

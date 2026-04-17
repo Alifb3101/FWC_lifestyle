@@ -2,61 +2,18 @@ import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Heart, ShoppingCart, Eye, Star } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-
-const aedFormatter = new Intl.NumberFormat("en-AE", {
-  style: "currency",
-  currency: "AED",
-  maximumFractionDigits: 0,
-});
-
-const newProducts = [
-  {
-    id: 1,
-    name: "Prospex Solar Diver",
-    brand: "SEIKO",
-    price: 1399,
-    originalPrice: 1599,
-    rating: 4.8,
-    reviews: 124,
-    badge: "NEW",
-    image: "https://images.unsplash.com/photo-1509048191080-d2ea3a5d3d2f?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 2,
-    name: "Eco-Drive Chronograph",
-    brand: "CITIZEN",
-    price: 1249,
-    originalPrice: null,
-    rating: 5.0,
-    reviews: 89,
-    badge: "JUST DROPPED",
-    image: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 3,
-    name: "Master of G Metal Series",
-    brand: "G-SHOCK",
-    price: 1899,
-    originalPrice: 2199,
-    rating: 4.9,
-    reviews: 156,
-    badge: "NEW",
-    image: "https://images.unsplash.com/photo-1617714656659-47f3338a7b37?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 4,
-    name: "Classic Analog Steel",
-    brand: "CASIO",
-    price: 499,
-    originalPrice: null,
-    rating: 4.7,
-    reviews: 98,
-    badge: "JUST DROPPED",
-    image: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=900&q=80",
-  },
-];
+import { useMemo } from "react";
+import { useProducts } from "../../hooks/useProducts";
+import { formatPrice } from "../../lib/products";
 
 export function NewArrivals() {
+  const { products, loading } = useProducts();
+
+  const newProducts = useMemo(
+    () => [...products].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0, 4),
+    [products],
+  );
+
   return (
     <section className="section-block bg-background">
       <div className="container-shell">
@@ -82,6 +39,11 @@ export function NewArrivals() {
         </motion.div>
 
         <div className="grid gap-[clamp(1rem,2.5vw,1.75rem)] [grid-template-columns:repeat(auto-fit,minmax(14.5rem,1fr))]">
+          {loading &&
+            Array.from({ length: 4 }).map((_, idx) => (
+              <div key={idx} className="h-[24rem] rounded-lg border border-border bg-card animate-pulse" />
+            ))}
+
           {newProducts.map((product, index) => (
             <motion.div
               key={product.id}
@@ -92,17 +54,17 @@ export function NewArrivals() {
               className="group h-full"
             >
               <div className="relative overflow-hidden rounded-lg bg-card border border-border mb-4">
-                <Link to={`/product/${product.id}`} className="block aspect-square relative overflow-hidden">
+                <Link to={`/product/${product.slug}`} className="block aspect-square relative overflow-hidden">
                   <ImageWithFallback
-                    src={product.image}
-                    alt={`${product.brand} ${product.name}`}
+                    src={product.thumbnail}
+                    alt={`${product.brand.name} ${product.name}`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
 
                   {/* Badge */}
                   <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-primary-foreground text-xs font-bold rounded">
-                    {product.badge}
+                    {index < 2 ? "NEW" : "JUST DROPPED"}
                   </div>
 
                   {/* Quick Actions */}
@@ -127,8 +89,8 @@ export function NewArrivals() {
 
               {/* Product Info */}
               <div className="flex flex-col gap-2">
-                <p className="text-xs text-muted-foreground tracking-wider">{product.brand}</p>
-                <Link to={`/product/${product.id}`} className="block">
+                <p className="text-xs text-muted-foreground tracking-wider">{product.brand.name}</p>
+                <Link to={`/product/${product.slug}`} className="block">
                   <h3 className="font-semibold group-hover:text-primary transition-colors line-clamp-2">
                     {product.name}
                   </h3>
@@ -138,17 +100,17 @@ export function NewArrivals() {
                 <div className="flex items-center gap-2 mb-2">
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 fill-primary text-primary" />
-                    <span className="text-sm font-semibold">{product.rating}</span>
+                    <span className="text-sm font-semibold">{product.rating > 0 ? product.rating.toFixed(1) : "-"}</span>
                   </div>
-                  <span className="text-xs text-muted-foreground">({product.reviews})</span>
+                  <span className="text-xs text-muted-foreground">({product.reviewCount})</span>
                 </div>
 
                 {/* Price */}
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-bold text-primary">{aedFormatter.format(product.price)}</span>
-                  {product.originalPrice && (
+                  <span className="text-lg font-bold text-primary">{formatPrice(product.price, product.currency)}</span>
+                  {product.originalPrice && product.originalPrice > product.price && (
                     <span className="text-sm text-muted-foreground line-through">
-                      {aedFormatter.format(product.originalPrice)}
+                      {formatPrice(product.originalPrice, product.currency)}
                     </span>
                   )}
                 </div>

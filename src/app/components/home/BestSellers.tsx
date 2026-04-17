@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -8,100 +8,11 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-
-const aedFormatter = new Intl.NumberFormat("en-AE", {
-  style: "currency",
-  currency: "AED",
-  maximumFractionDigits: 0,
-});
-
-type ProductCard = {
-  id: number;
-  name: string;
-  size: string;
-  price: number;
-  image: string;
-};
-
-const bestSellers: ProductCard[] = [
-  {
-    id: 1,
-    name: "Khaki Field King Day-Date",
-    size: "40 mm",
-    price: 899,
-    image:
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 2,
-    name: "Jazzmaster Quartz",
-    size: "40 mm",
-    price: 1199,
-    image:
-      "https://images.unsplash.com/photo-1549972574-8e3e1ed6a347?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 3,
-    name: "Classic Automatic",
-    size: "41 mm",
-    price: 1499,
-    image:
-      "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 4,
-    name: "Heritage Steel",
-    size: "39 mm",
-    price: 999,
-    image:
-      "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 5,
-    name: "Prestige Chronograph",
-    size: "42 mm",
-    price: 1899,
-    image:
-      "https://images.unsplash.com/photo-1617714656659-47f3338a7b37?auto=format&fit=crop&w=1200&q=80",
-  },
-];
-
-const newArrivals: ProductCard[] = [
-  {
-    id: 101,
-    name: "Royal Diver Automatic",
-    size: "42 mm",
-    price: 1399,
-    image:
-      "https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 102,
-    name: "Steel Heritage",
-    size: "40 mm",
-    price: 1249,
-    image:
-      "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 103,
-    name: "Modern Racer",
-    size: "41 mm",
-    price: 1599,
-    image:
-      "https://images.unsplash.com/photo-1617714656659-47f3338a7b37?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 104,
-    name: "Ocean Master",
-    size: "43 mm",
-    price: 1749,
-    image:
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=80",
-  },
-];
+import { useProducts } from "../../hooks/useProducts";
+import { formatPrice } from "../../lib/products";
 
 export function BestSellers() {
+  const { products: allProducts, loading } = useProducts();
   const [activeTab, setActiveTab] = useState<"best" | "new">("best");
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(true);
@@ -112,8 +23,26 @@ export function BestSellers() {
   const startX = useRef(0);
   const startScroll = useRef(0);
 
-  const products =
-    activeTab === "best" ? bestSellers : newArrivals;
+  const bestSellers = useMemo(
+    () =>
+      [...allProducts]
+        .sort((a, b) => {
+          if (b.reviewCount !== a.reviewCount) {
+            return b.reviewCount - a.reviewCount;
+          }
+
+          return b.rating - a.rating;
+        })
+        .slice(0, 8),
+    [allProducts],
+  );
+
+  const newArrivals = useMemo(
+    () => [...allProducts].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0, 8),
+    [allProducts],
+  );
+
+  const products = activeTab === "best" ? bestSellers : newArrivals;
 
   const updateArrows = () => {
     const rail = railRef.current;
@@ -307,7 +236,16 @@ export function BestSellers() {
                 onPointerCancel={onPointerUp}
                 className="luxury-rail flex gap-4 overflow-x-auto pb-2 sm:gap-5 lg:gap-6"
               >
-                {products.map((product, index) => (
+                {loading &&
+                  Array.from({ length: 4 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      data-card
+                      className="h-[27rem] w-[82vw] shrink-0 rounded-[26px] border border-[#ebe3d6] bg-white animate-pulse sm:w-[46vw] lg:w-[31vw] xl:w-[23.4%]"
+                    />
+                  ))}
+
+                {!loading && products.map((product, index) => (
                   <motion.div
                     key={product.id}
                     data-card
@@ -320,7 +258,7 @@ export function BestSellers() {
                   >
                     {/* Whole Card Clickable */}
                     <Link
-                      to={`/product/${product.id}`}
+                      to={`/product/${product.slug}`}
                       draggable={false}
                       onClick={(e) => {
                         if (moved.current) {
@@ -344,7 +282,7 @@ export function BestSellers() {
 
                           <div className="absolute inset-0 p-2 sm:p-2.5 lg:p-3">
                             <ImageWithFallback
-                              src={product.image}
+                              src={product.thumbnail}
                               alt={product.name}
                               loading="lazy"
                               draggable={false}
@@ -361,7 +299,7 @@ export function BestSellers() {
                         </h3>
 
                         <p className="mt-1 text-sm text-[#7a7368]">
-                          Case Size · {product.size}
+                          SKU · {product.sku}
                         </p>
 
                         <div className="mt-5 flex items-end justify-between gap-3">
@@ -371,9 +309,7 @@ export function BestSellers() {
                             </p>
 
                             <p className="mt-1 text-[26px] font-semibold leading-none text-[#111111]">
-                              {aedFormatter.format(
-                                product.price
-                              )}
+                              {formatPrice(product.price, product.currency)}
                             </p>
                           </div>
 

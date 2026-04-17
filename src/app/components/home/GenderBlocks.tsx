@@ -58,18 +58,6 @@ export function GenderBlocks() {
                     loading="lazy"
                   />
 
-                  <div className="relative z-10 h-full flex flex-col justify-end p-6 md:p-10">
-                    <h3 className="text-[clamp(1.8rem,4vw,3.1rem)] font-bold text-foreground mb-3 tracking-tight">
-                      {poster.title}
-                    </h3>
-                    <p className="text-[clamp(0.95rem,2vw,1.1rem)] text-foreground/85 max-w-md mb-6">
-                      {poster.subtitle}
-                    </p>
-                    <div className="inline-flex w-fit items-center gap-2 px-5 py-3 rounded-full border border-foreground/30 bg-background/85 text-xs md:text-sm font-semibold tracking-wide group-hover:bg-foreground group-hover:text-background group-hover:border-foreground transition-all duration-300">
-                      <span>{poster.cta}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </div>
-                  </div>
                 </div>
               </Link>
             </motion.div>

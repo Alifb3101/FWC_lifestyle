@@ -9,17 +9,14 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-11 w-11 p-1.5">
+              <div className="h-20 w-25 p-1.5">
                 <img
                   src="https://i.postimg.cc/vZhWWHHJ/FWC-LOGO-WHITE-300x-8.png"
                   alt="FWC Lifestyle logo"
                   className="h-full w-full object-contain brightness-0"
                 />
               </div>
-              <div className="leading-tight">
-                <p className="text-base font-bold tracking-[0.18em] text-foreground">FWC</p>
-                <p className="text-xs tracking-[0.24em] text-muted-foreground">LIFESTYLE</p>
-              </div>
+
             </div>
             <p className="text-sm text-muted-foreground mb-6">
               Trusted watch destination in the UAE for authentic everyday and premium timepieces.
