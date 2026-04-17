@@ -44,9 +44,8 @@ type ProductsApiResponse = {
   items: Product[];
 };
 
-const PRODUCTS_API_URL =
-  (import.meta as unknown as { env?: Record<string, string | undefined> }).env?.VITE_PRODUCTS_API_URL ??
-  "http://localhost:3000/api/products";
+export const PRODUCTS_API_URL =
+  import.meta.env.VITE_PRODUCTS_API_URL ?? "http://localhost:3000/api/products";
 
 export async function fetchProducts(signal?: AbortSignal): Promise<Product[]> {
   const response = await fetch(PRODUCTS_API_URL, { signal });

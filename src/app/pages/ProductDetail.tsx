@@ -13,6 +13,7 @@ import {
   ChevronRight,
   ShoppingBag,
 } from "lucide-react";
+import { PRODUCTS_API_URL } from "../lib/products";
 
 type ProductApiResponse = {
   id: number;
@@ -79,12 +80,11 @@ export function ProductDetail() {
     const productId = id;
 
     const controller = new AbortController();
-    const baseUrl = "http://localhost:3000/api/products";
 
     async function loadProduct() {
       try {
         setLoading(true);
-        const response = await fetch(`${baseUrl}/${encodeURIComponent(productId)}`, {
+        const response = await fetch(`${PRODUCTS_API_URL}/${encodeURIComponent(productId)}`, {
           signal: controller.signal,
         });
 
