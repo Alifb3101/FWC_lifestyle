@@ -7,12 +7,18 @@ type UseProductsResult = {
   error: string | null;
 };
 
-export function useProducts(): UseProductsResult {
+export function useProducts(enabled = true): UseProductsResult {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
     const controller = new AbortController();
 
     async function loadProducts() {
@@ -37,7 +43,7 @@ export function useProducts(): UseProductsResult {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [enabled]);
 
   return { products, loading, error };
 }

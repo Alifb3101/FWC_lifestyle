@@ -69,7 +69,7 @@ export function ProductCard({ item }: ProductCardProps) {
         tabIndex={-1}
         aria-hidden="true"
       >
-        <div className="product-card__image-wrap relative aspect-[1/1.18] overflow-hidden bg-[#f0f0ee]">
+        <div className="product-card__image-wrap relative aspect-[1/1] overflow-hidden bg-[#f0f0ee]">
           {/* Main image */}
           <img
             src={imgError ? item.thumbnail : activeImage}
@@ -192,11 +192,18 @@ export function ProductCard({ item }: ProductCardProps) {
           </div>
         )}
 
+            {/* SKU — ultra-subtle, helps shop staff */}
+                {item.sku && (
+          <p className="mt-2 text-[9.5px] uppercase tracking-widest text-muted-foreground/50">
+            {item.sku}
+          </p>
+        )}
+
         {/* Spacer pushes price to bottom */}
         <div className="flex-1" />
 
         {/* Price Row */}
-        <div className="mt-3 flex items-end justify-between gap-2">
+        <div className="mt-1 flex items-end justify-between gap-2">
           <div className="flex items-baseline gap-2">
             <span className="text-[1rem] font-semibold text-foreground">
               {formatPrice(item.price, item.currency)}
@@ -241,12 +248,8 @@ export function ProductCard({ item }: ProductCardProps) {
           </div>
         )}
 
-        {/* SKU — ultra-subtle, helps shop staff */}
-        {item.sku && (
-          <p className="mt-2 text-[9.5px] uppercase tracking-widest text-muted-foreground/50">
-            {item.sku}
-          </p>
-        )}
+    
+
       </div>
 
       {/* Scoped styles */}

@@ -10,9 +10,59 @@ import {
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { useProducts } from "../../hooks/useProducts";
 import { formatPrice } from "../../lib/products";
+import type { HomepageListProduct } from "../../lib/homepage";
 
-export function BestSellers() {
-  const { products: allProducts, loading } = useProducts();
+type DisplayProduct = {
+  id: string | number;
+  name: string;
+  slug: string;
+  sku: string;
+  thumbnail: string;
+  price: number;
+  originalPrice: number | null;
+  currency: string;
+  rating: number;
+  reviewCount: number;
+  brand: { name: string };
+};
+
+type BestSellersProps = {
+  bestSellerItems?: HomepageListProduct[];
+  newArrivalItems?: HomepageListProduct[];
+  loading?: boolean;
+};
+
+function titleFromSlug(slug: string): string {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function toDisplayProduct(product: HomepageListProduct): DisplayProduct {
+  return {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    sku: product.slug.toUpperCase(),
+    thumbnail:
+      product.thumbnail ??
+      `https://placehold.co/600x600/f4f2ef/8f8777?text=${encodeURIComponent(titleFromSlug(product.slug))}`,
+    price: product.price,
+    originalPrice: product.comparePrice,
+    currency: product.currency,
+    rating: product.rating,
+    reviewCount: product.reviewCount,
+    brand: {
+      name: product.brand.name,
+    },
+  };
+}
+
+export function BestSellers({ bestSellerItems = [], newArrivalItems = [], loading = false }: BestSellersProps) {
+  const hasHomepageLists = bestSellerItems.length > 0 || newArrivalItems.length > 0;
+  const { products: allProducts, loading: productsLoading } = useProducts(!hasHomepageLists);
   const [activeTab, setActiveTab] = useState<"best" | "new">("best");
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(true);
@@ -23,26 +73,60 @@ export function BestSellers() {
   const startX = useRef(0);
   const startScroll = useRef(0);
 
-  const bestSellers = useMemo(
+  const bestSellers = useMemo<DisplayProduct[]>(
     () =>
-      [...allProducts]
-        .sort((a, b) => {
-          if (b.reviewCount !== a.reviewCount) {
-            return b.reviewCount - a.reviewCount;
-          }
+      hasHomepageLists
+        ? bestSellerItems.slice(0, 8).map(toDisplayProduct)
+        : [...allProducts]
+            .sort((a, b) => {
+              if (b.reviewCount !== a.reviewCount) {
+                return b.reviewCount - a.reviewCount;
+              }
 
-          return b.rating - a.rating;
-        })
-        .slice(0, 8),
-    [allProducts],
+              return b.rating - a.rating;
+            })
+            .slice(0, 8)
+            .map((product) => ({
+              id: product.id,
+              name: product.name,
+              slug: product.slug,
+              sku: product.sku,
+              thumbnail: product.thumbnail,
+              price: product.price,
+              originalPrice: product.originalPrice,
+              currency: product.currency,
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+              brand: { name: product.brand.name },
+            })),
+    [allProducts, bestSellerItems, hasHomepageLists],
   );
 
-  const newArrivals = useMemo(
-    () => [...allProducts].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0, 8),
-    [allProducts],
+  const newArrivals = useMemo<DisplayProduct[]>(
+    () =>
+      hasHomepageLists
+        ? newArrivalItems.slice(0, 8).map(toDisplayProduct)
+        : [...allProducts]
+            .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+            .slice(0, 8)
+            .map((product) => ({
+              id: product.id,
+              name: product.name,
+              slug: product.slug,
+              sku: product.sku,
+              thumbnail: product.thumbnail,
+              price: product.price,
+              originalPrice: product.originalPrice,
+              currency: product.currency,
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+              brand: { name: product.brand.name },
+            })),
+    [allProducts, hasHomepageLists, newArrivalItems],
   );
 
   const products = activeTab === "best" ? bestSellers : newArrivals;
+  const sectionLoading = loading || productsLoading;
 
   const updateArrows = () => {
     const rail = railRef.current;
@@ -236,7 +320,7 @@ export function BestSellers() {
                 onPointerCancel={onPointerUp}
                 className="luxury-rail flex gap-4 overflow-x-auto pb-2 sm:gap-5 lg:gap-6"
               >
-                {loading &&
+                {sectionLoading &&
                   Array.from({ length: 4 }).map((_, idx) => (
                     <div
                       key={idx}
@@ -245,7 +329,7 @@ export function BestSellers() {
                     />
                   ))}
 
-                {!loading && products.map((product, index) => (
+                {!sectionLoading && products.map((product, index) => (
                   <motion.div
                     key={product.id}
                     data-card

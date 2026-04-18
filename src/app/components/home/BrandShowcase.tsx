@@ -1,28 +1,13 @@
 import { motion } from "motion/react";
+import type { HomepageBrand } from "../../lib/homepage";
 
-const brands = ["SEIKO", "G-SHOCK", "CASIO", "CURREN", "NaviForce", "FOSSIL", "ALFAJR", "AL-HARAMEEN"];
-
-// Update these values when you upload each real logo.
-const brandLogoByName: Record<string, string> = {
-  SEIKO: "https://i.postimg.cc/7PFt7QdW/SEIKO.png",
-  "G-SHOCK": "https://i.postimg.cc/m2qLQRBT/pngwing-com.png",
-  CASIO: "https://i.postimg.cc/8zXfxxh2/casio.jpg",
-  CURREN: "https://i.postimg.cc/pd17hVK6/curren.webp",
-  NaviForce: "https://i.postimg.cc/Xvcq4hFs/naviforce.avif",
-  FOSSIL: "https://i.postimg.cc/2j4DJvQm/fossile.jpg",
-  ALFAJR: "https://i.postimg.cc/qv6QbcKD/al-fajr.png",
-  "AL-HARAMEEN": "https://i.postimg.cc/765ghwNM/al-harameen.png",
+type BrandShowcaseProps = {
+  brands?: HomepageBrand[];
+  loading?: boolean;
 };
 
-function getBrandLogo(brand: string) {
-  if (brandLogoByName[brand]) {
-    return brandLogoByName[brand];
-  }
+export function BrandShowcase({ brands = [], loading = false }: BrandShowcaseProps) {
 
-  return `https://dummyimage.com/420x140/f7f7f5/111827&text=${encodeURIComponent(brand)}`;
-}
-
-export function BrandShowcase() {
   return (
     <section className="relative overflow-hidden border-b border-border bg-[#f5f5f3] py-20 md:py-5">
       <div className="container-shell relative px-4 sm:px-6">
@@ -41,9 +26,14 @@ export function BrandShowcase() {
 
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
-            {brands.map((brand, index) => (
+            {loading &&
+              Array.from({ length: 8 }).map((_, idx) => (
+                <div key={idx} className="min-h-[112px] animate-pulse rounded-md border border-[#dad8d2] bg-white" />
+              ))}
+
+            {!loading && brands.map((brand, index) => (
               <motion.div
-                key={brand}
+                key={brand.id}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -53,8 +43,8 @@ export function BrandShowcase() {
               >
                 <div className="relative h-full w-full min-h-[112px]">
                   <img
-                    src={getBrandLogo(brand)}
-                    alt={`${brand} logo`}
+                    src={brand.logo}
+                    alt={`${brand.name} logo`}
                     className="absolute inset-0 h-full w-full object-contain"
                     loading="lazy"
                   />

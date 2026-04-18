@@ -4,7 +4,7 @@ import { Search, Heart, User, ShoppingBag, Menu, X, MapPin, Phone } from "lucide
 
 const NAV_ITEMS = [
   { label: "Brands", to: "/brands" },
-  { label: "Alarm Clocks", to: "/collections" },
+  { label: "Wall Clocks", to: "/collections" },
   { label: "Men", to: "/men" },
   { label: "Women", to: "/women" },
   { label: "Couple Watch", to: "/couple-watch" },

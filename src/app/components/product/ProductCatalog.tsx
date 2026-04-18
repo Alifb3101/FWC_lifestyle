@@ -14,7 +14,7 @@ type ProductCatalogProps = {
 
 const promoBanner = {
   image:
-    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?auto=format&fit=crop&w=1100&q=80",
+    "https://www.hamiltonwatch.com/media/wysiwyg/Confidential/Stories-2026/Khaki_Field_King.jpg",
   title: "Khaki Field King",
   subtitle: "Heritage meets adventure in a modern field watch built for life beyond routine.",
 };
@@ -230,7 +230,7 @@ export function ProductCatalog({
               <img
                 src={promoBanner.image}
                 alt={promoBanner.title}
-                className="h-[35rem] w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+                className="h-[31rem] w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
